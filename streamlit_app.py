@@ -1,15 +1,9 @@
-import base64
 import os
 import sys
-import time
 import streamlit as st
-import pdfplumber
-import tempfile
 import openai
 from dotenv import load_dotenv
 import pdftotext
-import re
-from streamlit_chat import message
 #end of libs
 # files
 from utils.chat_ui import render_chat_ui
