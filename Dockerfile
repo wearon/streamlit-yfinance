@@ -1,16 +1,14 @@
 # app/Dockerfile
 
-FROM python:3.9-slim
+FROM lambci/lambda:build-python3.9
 
-WORKDIR /app
+RUN yum -y install gcc-c++ pkgconfig poppler-cpp-devel poppler-utils python-devel redhat-rpm-config
 
-RUN apt-get update && apt-get install -y \
-    build-essential \
-    curl \
-    software-properties-common \
-    git \
-    && rm -rf /var/lib/apt/lists/*
+RUN pip install -U pip-tools && \
+pip install -U pdftotext && \
+pip install -U zappa
 
+RUN virtualenv --verbose /venv
 
 # Copy the requirements file into the container
 COPY requirements.txt .
