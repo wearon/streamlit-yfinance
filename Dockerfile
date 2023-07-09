@@ -2,7 +2,7 @@
 FROM python:3.8-slim-buster
 
 # Install the system-level dependency (poppler-utils) for pdftotext
-RUN apt-get update && apt-get install -y poppler-utils
+RUN apt-get update && apt-get install build-essential libpoppler-cpp-dev pkg-config python3-dev
 
 # Set the working directory in the container
 WORKDIR /app
