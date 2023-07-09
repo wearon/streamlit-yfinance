@@ -30,11 +30,12 @@ mdurl==0.1.2
 multidict==6.0.4
 mypy-extensions==1.0.0
 numexpr==2.8.4
-numpy==1.25.1
+numpy==1.16.2
+pandas==1.0.3
 openai==0.27.8
 openapi-schema-pydantic==1.2.4
 packaging==23.1
-pandas==2.0.3
+
 pdftotext==2.2.2
 Pillow==10.0.0
 protobuf==4.23.4
