@@ -1,26 +1,23 @@
-# app/Dockerfile
+# Use an official Python runtime as the base image
+FROM python:3.8-slim-buster
 
-FROM lambci/lambda:build-python3.9
+# Install the system-level dependency (poppler-utils) for pdftotext
+RUN apt-get update && apt-get install -y poppler-utils
 
-RUN yum -y install gcc-c++ pkgconfig poppler-cpp-devel poppler-utils python-devel redhat-rpm-config
-
-RUN pip install -U pip-tools && \
-pip install -U pdftotext && \
-pip install -U zappa
-
-RUN virtualenv --verbose /venv
+# Set the working directory in the container
+WORKDIR /app
 
 # Copy the requirements file into the container
 COPY requirements.txt .
 
-# Install the dependencies
-RUN pip3 install --no-cache-dir -r requirements.txt
+# Install the Python dependencies
+RUN pip install --no-cache-dir -r requirements.txt
 
 # Copy the rest of the application code into the container
 COPY . .
 
+# Expose the port that the Streamlit application will run on
 EXPOSE 8501
 
-HEALTHCHECK CMD curl --fail http://localhost:8501/_stcore/health
-
-ENTRYPOINT ["streamlit", "run", "streamlit_app.py", "--server.port=8501", "--server.address=0.0.0.0"]
+# Set the command to run the Streamlit application
+CMD ["streamlit", "run", "--server.port", "8501", "app.py"]
